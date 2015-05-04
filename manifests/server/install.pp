@@ -1,10 +1,10 @@
-# == Class dns::server
+# == Class dns::server::install
 #
 class dns::server::install (
-  $necessary_packages = $dns::server::params::necessary_packages
+  $package = $dns::server::params::package
 ) inherits dns::server::params {
 
-  package { $necessary_packages :
+  package { $package:
     ensure => latest,
   }
 
