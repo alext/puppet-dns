@@ -197,7 +197,21 @@ describe 'dns::zone' do
           end
       end
 
+      context 'with both global and zone forwarders' do
+          let(:pre_condition) {
+            <<-EOT
+            include dns::server
+            class { 'dns::server::options':
+              forwarders => ['8.8.8.8', '8.8.4.4'],
+            }
+            EOT
+          }
+          let(:params) {{
+            :allow_forwarder => ['192.168.1.1'],
+          }}
 
+          it { should raise_error(Puppet::Error, /You cannot specify a global forwarder and a zone forwarder/) }
+      end
   end
 end
 

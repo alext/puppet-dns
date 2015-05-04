@@ -28,7 +28,7 @@ node 'server.example.com' {
   include dns::server
 
   # Forwarders
-  dns::server::options { '/etc/bind/named.conf.options':
+  class { 'dns::server::options':
     forwarders => [ '8.8.8.8', '8.8.4.4' ]
   }
 
@@ -101,7 +101,7 @@ dns::zone { 'example.com':
 You can change the checking of the domain name. The policy can be either warn fail or ignore.
 
 ```puppet
-dns::server::options { '/etc/bind/named.conf.options':
+class { 'dns::server::options':
   check_names_master => 'fail',
   check_names_slave  => 'warn',
   forwarders         => [ '8.8.8.8', '4.4.4.4' ],
