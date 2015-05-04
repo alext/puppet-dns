@@ -10,6 +10,7 @@ describe 'dns::key' do
         :osfamily => 'Debian'
       })
     end
+    it { should contain_class('dns::server::install::dnssec') }
     it { should contain_file('/tmp/rspec-key-secret.sh').with_notify('Exec[dnssec-keygen-rspec-key]') }
     it { should contain_exec('dnssec-keygen-rspec-key').with_command(/USER rspec-key$/) }
     it { should contain_exec('get-secret-from-rspec-key').with_command('/tmp/rspec-key-secret.sh') }
@@ -31,6 +32,7 @@ describe 'dns::key' do
         :osfamily => 'RedHat'
       })
     end
+    it { should contain_class('dns::server::install::dnssec') }
     it { should contain_file('/tmp/rspec-key-secret.sh').with_notify('Exec[dnssec-keygen-rspec-key]') }
     it { should contain_exec('dnssec-keygen-rspec-key').with_command(/USER rspec-key$/) }
     it { should contain_exec('get-secret-from-rspec-key').with_command('/tmp/rspec-key-secret.sh') }

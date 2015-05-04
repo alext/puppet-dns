@@ -10,7 +10,7 @@ class dns::server::params {
       $owner              = 'bind'
       $package            = 'bind9'
       $service            = 'bind9'
-      $necessary_packages = [ 'bind9', 'dnssec-tools' ]
+      $dnssec_packages    = [ 'dnssec-tools' ]
     }
     'RedHat': {
       $cfg_dir            = '/etc/named'
@@ -22,10 +22,10 @@ class dns::server::params {
       $service            = 'named'
       case $::operatingsystemmajrelease {
         '7': {
-          $necessary_packages = [ 'bind', ]
+          $dnssec_packages = []
         }
         default: {
-          $necessary_packages = [ 'bind', 'dnssec-tools' ]
+          $dnssec_packages = [ 'dnssec-tools' ]
         }
       }
     }
