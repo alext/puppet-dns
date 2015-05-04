@@ -1,13 +1,11 @@
 require 'spec_helper'
 
-describe 'dns::server::options', :type => :define do
+describe 'dns::server::options', :type => :class do
   let :pre_condition do
     'class { "::dns::server": }'
   end
 
   let(:facts) { { :osfamily => 'Debian', :concat_basedir => '/tmp' } }
-
-  let(:title) { '/etc/bind/named.conf.options' }
 
   context 'passing valid array to forwarders' do
     let :params do

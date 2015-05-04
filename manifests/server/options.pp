@@ -1,4 +1,4 @@
-# == Define: dns::server::options
+# == Class: dns::server::options
 #
 # BIND server template-based configuration definition.
 #
@@ -39,11 +39,11 @@
 #
 # === Examples
 #
-#  dns::server::options { '/etc/bind/named.conf.options':
+#  class { 'dns::server::options':
 #    forwarders => [ '8.8.8.8', '8.8.4.4' ],
 #   }
 #
-define dns::server::options (
+class dns::server::options (
   $forwarders = [],
   $transfers = [],
   $listen_on = [],
@@ -76,12 +76,12 @@ define dns::server::options (
   }
   validate_array($allow_query)
 
-  file { $title:
+  file { "${cfg_dir}/named.conf.options":
     ensure  => present,
     owner   => $::dns::server::params::owner,
     group   => $::dns::server::params::group,
     mode    => '0644',
-    require => [File[$cfg_dir], Class['::dns::server::install']],
+    require => Class['::dns::server::config'],
     content => template("${module_name}/named.conf.options.erb"),
     notify  => Class['dns::server::service'],
   }
