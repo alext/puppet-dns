@@ -34,10 +34,7 @@ class dns::server::config (
     owner   => $owner,
     group   => $group,
     mode    => '0644',
-    require => [
-      File[$cfg_dir],
-      Class['dns::server::install']
-    ],
+    require => File[$cfg_dir],
     notify  => Class['dns::server::service'],
   }
 
